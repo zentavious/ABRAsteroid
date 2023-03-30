@@ -121,6 +121,26 @@ public class TimestepAnimationController : MonoBehaviour
         }
     }
 
+public void SetFloatTimestep(float ftimestepNumber)
+    {   
+        int timestepNumber = (int)ftimestepNumber;
+        int closestIndex = timestepNumbers.IndexOf(timestepNumber);
+        if ((closestIndex == -1) && (timestepNumbers.Count > 0)) {
+            int closestDiff = Mathf.Abs(timestepNumber - timestepNumbers[0]);
+            for (int i = 1; i < timestepNumbers.Count; i++) {
+                int diff = Mathf.Abs(timestepNumber - timestepNumbers[i]);
+                if (diff < closestDiff) {
+                    closestIndex = i;
+                    closestDiff = diff;
+                }
+            }
+        }
+
+        if ((closestIndex != -1) && (closestIndex != currentTimestepIndex)) {
+            currentTimestepIndex = closestIndex;
+            NotifyListeners();
+        }
+    }
 
 
     private void NotifyListeners()
