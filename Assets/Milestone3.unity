@@ -170,7 +170,7 @@ MonoBehaviour:
   dataPathForTemplateDataImpressions: LANL/Asteroid/KeyData/B31_Volume
   baseDataPathForTimesteps: LANL/Asteroid/KeyData/B31_Volume_
   firstTimestepNumber: 0
-  lastTimestepNumber: 40
+  lastTimestepNumber: 60
   timestepNumberInc: 10
 --- !u!114 &124038534
 MonoBehaviour:
@@ -379,7 +379,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firstTimestepNumber: 0
-  lastTimestepNumber: 40
+  lastTimestepNumber: 60
   timestepNumberInc: 10
   paused: 0
   framesPerSecond: 1
@@ -471,7 +471,7 @@ MonoBehaviour:
   dataPathForTemplateDataImpressions: LANL/Asteroid/KeyData/B31_Water
   baseDataPathForTimesteps: LANL/Asteroid/KeyData/B31_Water_
   firstTimestepNumber: 0
-  lastTimestepNumber: 40
+  lastTimestepNumber: 60
   timestepNumberInc: 10
 --- !u!114 &1694209501
 MonoBehaviour:

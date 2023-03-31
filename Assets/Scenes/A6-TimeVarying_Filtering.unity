@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028331, g: 0.2257133, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -282,12 +282,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 492880806}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a3f0fcf0ea0e243eea3fa2ce9ce91f54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_VolumeKeyDataPath: LANL/FireSim/KeyData/Smoke
+  m_VolumeKeyDataPath: LANL/FireSim/KeyData/B31_Volume
   m_KeyDataPathCanIncludeSuffix: 1
   m_OutOfRangeDataValue: -9999
 --- !u!4 &492880808
@@ -775,7 +775,7 @@ PrefabInstance:
     - target: {fileID: 5227720014445609534, guid: 7065449f3d031b6fe805be247bc48142, type: 3}
       propertyPath: configPrototype
       value: 
-      objectReference: {fileID: 11400000, guid: 0d7fdba7cc002e84b835275236ab1c32, type: 2}
+      objectReference: {fileID: 11400000, guid: 9a977f0a1533a29468575239716c848f, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7065449f3d031b6fe805be247bc48142, type: 3}
 --- !u!1 &1670501264

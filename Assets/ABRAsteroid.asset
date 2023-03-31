@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ABRAsteroid
   m_EditorClassIdentifier: 
   mediaPath: ../Media
-  serverUrl: 
+  serverUrl: http://localhost:8000/api/state
   loadStateOnStart: 
   defaultGlyph: {fileID: 6308255946298478577, guid: 713b972cbffad19a791a2bd818008481, type: 3}
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
@@ -23,8 +23,8 @@ MonoBehaviour:
   visAssetServerUrl: 
   dataServerUrl: 
   dataListenerPort: 1900
-  useAutoDataContainer: 0
+  useAutoDataContainer: 1
   dataContainer:
     m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 1, y: 1, z: 1}
+    m_Extent: {x: 200, y: 200, z: 200}
   overrideGroupToDataMatrices: []
