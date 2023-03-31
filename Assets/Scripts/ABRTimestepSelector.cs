@@ -28,12 +28,21 @@ public class ABRTimestepSelector : MonoBehaviour
         "KeyData, the class will handle switching the data on all of them.")]
     public string dataPathForTemplateDataImpressions = "LANL/FireSim/KeyData/Wind";
 
+    [Tooltip("This string identifies the DataImpression in ABR Compose that should be treated as as template. " +
+        "In most cases, this will match a single DataImpression, but if multiple DataImpressions use the same " +
+        "KeyData, the class will handle switching the data on all of them.")]
+    public string dataPathForTemplateDataImpressions2 = "LANL/FireSim/KeyData/Wind";
+
 
     [Header("Timestep-Specific Data")]
 
     [Tooltip("This is the base string for the datapath where the time-varying versions of the KeyData can be found. " +
         "The filename for the timesteps is created by appending the timestep number to this string.")]
     public string baseDataPathForTimesteps = "LANL/FireSim/KeyData/Wind_";
+
+    [Tooltip("This is the base string for the datapath where the time-varying versions of the KeyData can be found. " +
+        "The filename for the timesteps is created by appending the timestep number to this string.")]
+    public string baseDataPathForTimesteps2 = "LANL/FireSim/KeyData/Wind_";
 
     [Tooltip("The number of the first timestep. It is appended to baseDataPathForTimesteps to get the filename for " +
         "the KeyData.")]
@@ -51,8 +60,13 @@ public class ABRTimestepSelector : MonoBehaviour
 
     // private runtime only vars
     List<IDataImpression> dataImpressions;
+    List<IDataImpression> dataImpressions2;
     List<int> timestepNumbers;
+    List<int> timestepNumbers2;
     List<KeyData> timestepKeyData;
+    List<KeyData> timestepKeyData2;
+    string firstSimGroup;
+    string secondSimGroup;
     // note: this is the index into the timestepNumbers and timestepKeyData arrays, NOT the current timestep number.
     int currentTimestepIndex;
 
@@ -104,12 +118,23 @@ public class ABRTimestepSelector : MonoBehaviour
     {
         currentTimestepIndex = 0;
         timestepNumbers = new List<int>();
+        timestepNumbers2 = new List<int>();
         timestepKeyData = new List<KeyData>();
+        timestepKeyData2 = new List<KeyData>();
         dataImpressions = new List<IDataImpression>();
+        dataImpressions2 = new List<IDataImpression>();
+
+        // Cheat by getting the first 8 chars from the datapath because that 
+        firstSimGroup = dataPathForTemplateDataImpressions.Substring(0, 8);
+        secondSimGroup = dataPathForTemplateDataImpressions2.Substring(0, 8);
     }
 
     private void Update()
     {
+        // update impression groups incase they changed.
+        firstSimGroup = dataPathForTemplateDataImpressions.Substring(0, 8);
+        secondSimGroup = dataPathForTemplateDataImpressions2.Substring(0, 8);
+
         if (dataImpressions.Count == 0) {
             dataImpressions = ABREngine.Instance.GetDataImpressions(dataPathForTemplateDataImpressions);
             if ((Time.frameCount == 1) && (dataImpressions.Count == 0)) {
@@ -117,6 +142,16 @@ public class ABRTimestepSelector : MonoBehaviour
                 Debug.LogWarning($"No DataImpressions reference the data path '{dataPathForTemplateDataImpressions}'.");
             }
         }
+        if (dataImpressions2.Count == 0)
+        {
+            dataImpressions2 = ABREngine.Instance.GetDataImpressions(dataPathForTemplateDataImpressions2);
+            if ((Time.frameCount == 1) && (dataImpressions2.Count == 0))
+            {
+                // frameCount == 1 so we only warn once
+                Debug.LogWarning($"No DataImpressions reference the data path '{dataPathForTemplateDataImpressions2}'.");
+            }
+        }
+
 
         if ((dataImpressions.Count != 0) && (timestepKeyData.Count == 0)) {
             for (int i = firstTimestepNumber; i <= lastTimestepNumber; i += timestepNumberInc) {
@@ -134,6 +169,26 @@ public class ABRTimestepSelector : MonoBehaviour
             }
         }
 
+        if ((dataImpressions2.Count != 0) && (timestepKeyData2.Count == 0))
+        {
+            for (int i = firstTimestepNumber; i <= lastTimestepNumber; i += timestepNumberInc)
+            {
+                string mediaDir = Path.GetFullPath(ABREngine.Instance.MediaPath);
+                string dataPath2 = baseDataPathForTimesteps2 + i.ToString();
+                string fullPath2 = Path.Combine(mediaDir, ABRConfig.Consts.DatasetFolder, dataPath2) + ".json";
+                FileInfo jsonFile2 = new FileInfo(fullPath2);
+                if (jsonFile2.Exists)
+                {
+                    KeyData kd2 = ABREngine.Instance.Data.LoadData(dataPath2);
+                    timestepNumbers2.Add(i);
+                    timestepKeyData2.Add(kd2);
+                }
+                else
+                {
+                    Debug.LogWarning($"Skipping timestep {i}. Could not find data file at '{fullPath2}'");
+                }
+            }
+        }
         // The KeyData need to be updated whenever the timestep changes.
         // If using ABR Compose, a style change will also have the impact of resetting the keydata to whatever
         // is used in ABR Compose.  So, it is good to check every frame in case that change was made.
@@ -162,6 +217,45 @@ public class ABRTimestepSelector : MonoBehaviour
             SimpleVolumeDataImpression volDI = di as SimpleVolumeDataImpression;
             if ((volDI != null) && (volDI.keyData != timestepKeyData[currentTimestepIndex])) {
                 volDI.keyData = timestepKeyData[currentTimestepIndex];
+                volDI.RenderHints.DataChanged = true;
+                ABREngine.Instance.Render();
+            }
+        }
+
+        DataImpressionGroup secondSim =
+            ABREngine.Instance.GetDataImpressionGroup(secondSimGroup);
+        secondSim.GroupRoot.transform.position = new Vector3(0, 0, 10000);
+
+        foreach (IDataImpression di in dataImpressions2)
+        {
+            // todo: add a TrySetKeyData() method to IDataImpression to avoid needing to loop through all the
+            // possible types here.
+
+            SimpleLineDataImpression lineDI = di as SimpleLineDataImpression;
+            if ((lineDI != null) && (lineDI.keyData != timestepKeyData2[currentTimestepIndex]))
+            {
+                lineDI.keyData = timestepKeyData2[currentTimestepIndex];
+                lineDI.RenderHints.DataChanged = true;
+                ABREngine.Instance.Render();
+            }
+            SimpleGlyphDataImpression glyphDI = di as SimpleGlyphDataImpression;
+            if ((glyphDI != null) && (glyphDI.keyData != timestepKeyData2[currentTimestepIndex]))
+            {
+                glyphDI.keyData = timestepKeyData2[currentTimestepIndex];
+                glyphDI.RenderHints.DataChanged = true;
+                ABREngine.Instance.Render();
+            }
+            SimpleSurfaceDataImpression surfDI = di as SimpleSurfaceDataImpression;
+            if ((surfDI != null) && (surfDI.keyData != timestepKeyData2[currentTimestepIndex]))
+            {
+                surfDI.keyData = timestepKeyData2[currentTimestepIndex];
+                surfDI.RenderHints.DataChanged = true;
+                ABREngine.Instance.Render();
+            }
+            SimpleVolumeDataImpression volDI = di as SimpleVolumeDataImpression;
+            if ((volDI != null) && (volDI.keyData != timestepKeyData2[currentTimestepIndex]))
+            {
+                volDI.keyData = timestepKeyData2[currentTimestepIndex];
                 volDI.RenderHints.DataChanged = true;
                 ABREngine.Instance.Render();
             }
