@@ -3,16 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SliderChange : MonoBehaviour
-
-    
+public class PopUp : MonoBehaviour
 {
-    public Text valueText;
-    public Slider slider;
+
+    public GameObject popUp;
     // Start is called before the first frame update
     void Start()
     {
-        
+        popUp.SetActive(false);
     }
 
     // Update is called once per frame
@@ -21,12 +19,15 @@ public class SliderChange : MonoBehaviour
         
     }
 
-    public void SliderUpdate(int TimeStepVal){
-        slider.value = ((float)TimeStepVal);
+    public void ShowPopUp()
+    {
+        Debug.Log("showing");
+        popUp.SetActive(true);
     }
 
-    public void OnSliderChanged(float value)
+    public void HidePopUp()
     {
-    valueText.text = value.ToString();
+        Debug.Log("hiding");
+        popUp.SetActive(false);
     }
 }
