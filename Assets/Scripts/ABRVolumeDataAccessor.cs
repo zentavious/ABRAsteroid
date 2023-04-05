@@ -85,7 +85,7 @@ public class ABRVolumeDataAccessor : MonoBehaviour
     /// <summary>
     /// The x,y,z dimensions of the raw voxel data (i.e., the number of voxels in each direction) -- read only.
     /// </summary>
-    public Vector3Int VolumeDimensionsInVoxels {
+    public Vector3Int VolumeDimensionsInVoxels { /// USE ME
         get {
             if (IsDataAvailable()) {
                 return m_CurrentRawDataset.dimensions;
@@ -280,7 +280,7 @@ public class ABRVolumeDataAccessor : MonoBehaviour
     /// does not use interpolation.  Or, GetValueAtVoxel(), which is even faster but does not support fractional
     /// voxel coordinates.
     /// </summary>
-    public float GetValueAtVoxelSpacePoint(Vector3 pointInVoxelSpace)
+    public float GetValueAtVoxelSpacePoint(Vector3 pointInVoxelSpace) // use me
     {
         int xFloor = Mathf.Max(Mathf.FloorToInt(pointInVoxelSpace.x), 0);
         int xCeil = Mathf.Min(Mathf.CeilToInt(pointInVoxelSpace.x), VolumeDimensionsInVoxels.x - 1);
@@ -369,7 +369,7 @@ public class ABRVolumeDataAccessor : MonoBehaviour
     /// graphics card until you call ApplyVoxelVisibility().  Call SetVoxelVisibility() as many times as needed
     /// first, then call ApplyVoxelVisibility() once to save the updated visibility flags to the graphics card.
     /// </summary>
-    public void SetVoxelVisibility(int x, int y, int z, bool show)
+    public void SetVoxelVisibility(int x, int y, int z, bool show) //Use me
     {
         if (IsDataAvailable()) {
             if (m_CurrentVolumeImpression.RenderHints.PerIndexVisibility == null) {
