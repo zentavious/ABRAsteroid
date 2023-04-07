@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -256,6 +256,7 @@ GameObject:
   - component: {fileID: 24657849}
   - component: {fileID: 24657848}
   - component: {fileID: 24657847}
+  - component: {fileID: 24657850}
   m_Layer: 5
   m_Name: Window1Button
   m_TagString: Untagged
@@ -326,7 +327,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 24657848}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 24657850}
+        m_TargetAssemblyTypeName: MoveCamera, Assembly-CSharp
+        m_MethodName: Move
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &24657848
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -365,6 +378,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 24657845}
   m_CullTransparentMesh: 1
+--- !u!114 &24657850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 24657845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a83a7ba45f1bcdf468cf41c65ce36169, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xPos: 0
+  yPos: 10000
+  zPos: 10000
+  camera: {fileID: 1570110768}
 --- !u!1 &42977487
 GameObject:
   m_ObjectHideFlags: 0
@@ -795,7 +824,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &187034470
 Transform:
   m_ObjectHideFlags: 0
@@ -810,7 +839,6 @@ Transform:
   - {fileID: 492880808}
   - {fileID: 225978957}
   - {fileID: 712634311}
-  - {fileID: 530011029}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -954,11 +982,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dataPathForTemplateDataImpressions: LANL/B31/KeyData/Water
   dataPathForTemplateDataImpressions2: LANL/A31/KeyData/Water
+  dataPathForTemplateDataImpressions3: LANL/C31/KeyData/Water
   baseDataPathForTimesteps: LANL/B31/KeyData/Water_
   baseDataPathForTimesteps2: LANL/A31/KeyData/Water_
+  baseDataPathForTimesteps3: LANL/C31/KeyData/Water_
   firstTimestepNumber: 0
   lastTimestepNumber: 40
   timestepNumberInc: 10
+  renderFirstImpression: 1
 --- !u!1 &229299183
 GameObject:
   m_ObjectHideFlags: 0
@@ -1575,6 +1606,7 @@ GameObject:
   - component: {fileID: 429174167}
   - component: {fileID: 429174166}
   - component: {fileID: 429174165}
+  - component: {fileID: 429174168}
   m_Layer: 5
   m_Name: Window1Button
   m_TagString: Untagged
@@ -1645,7 +1677,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 429174166}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 429174168}
+        m_TargetAssemblyTypeName: MoveCamera, Assembly-CSharp
+        m_MethodName: Move
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &429174166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1684,6 +1728,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 429174163}
   m_CullTransparentMesh: 1
+--- !u!114 &429174168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 429174163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a83a7ba45f1bcdf468cf41c65ce36169, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xPos: 0
+  yPos: 0
+  zPos: 0
+  camera: {fileID: 1570110768}
 --- !u!1 &433647124
 GameObject:
   m_ObjectHideFlags: 0
@@ -1970,6 +2030,7 @@ GameObject:
   - component: {fileID: 492880808}
   - component: {fileID: 492880809}
   - component: {fileID: 492880807}
+  - component: {fileID: 492880810}
   m_Layer: 0
   m_Name: AsteroidSim Volume
   m_TagString: Untagged
@@ -2020,11 +2081,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dataPathForTemplateDataImpressions: LANL/B31/KeyData/Volume
   dataPathForTemplateDataImpressions2: LANL/A31/KeyData/Volume
+  dataPathForTemplateDataImpressions3: LANL/C31/KeyData/Volume
   baseDataPathForTimesteps: LANL/B31/KeyData/Volume_
   baseDataPathForTimesteps2: LANL/A31/KeyData/Volume_
+  baseDataPathForTimesteps3: LANL/C31/KeyData/Volume_
   firstTimestepNumber: 0
   lastTimestepNumber: 40
   timestepNumberInc: 10
+  renderFirstImpression: 1
+--- !u!114 &492880810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 492880806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30296384b7848fe4badd9d9bc30b6a1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dataPathForTemplateDataImpressions: LANL/B31/KeyData/Volume
+  dataPathForTemplateDataImpressions2: LANL/A31/KeyData/Volume
 --- !u!1 &510023317
 GameObject:
   m_ObjectHideFlags: 0
@@ -2062,72 +2140,6 @@ RectTransform:
   m_AnchoredPosition: {x: -143.78868, y: 40.035294}
   m_SizeDelta: {x: 88.327, y: 69.1494}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &530011028
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 530011029}
-  - component: {fileID: 530011031}
-  - component: {fileID: 530011030}
-  m_Layer: 0
-  m_Name: FireSim Trees
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &530011029
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 530011028}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 187034470}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &530011030
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 530011028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ac4d42fa73044f699c2ea19e993b208, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dataPathForTemplateDataImpressions: LANL/FireSim/KeyData/Trees
-  dataPathForTemplateDataImpressions2: LANL/FireSim/KeyData/Wind
-  baseDataPathForTimesteps: LANL/FireSim/KeyData/Trees_
-  baseDataPathForTimesteps2: LANL/FireSim/KeyData/Wind_
-  firstTimestepNumber: 4
-  lastTimestepNumber: 74
-  timestepNumberInc: 14
---- !u!114 &530011031
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 530011028}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27d01a6a64f65481394e8babbb36d299, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SurfaceKeyDataPath: LANL/FireSim/KeyData/Trees
-  m_KeyDataPathCanIncludeSuffix: 1
-  m_OutOfRangeDataValue: -9999
 --- !u!1 &550163292
 GameObject:
   m_ObjectHideFlags: 0
@@ -2446,7 +2458,19 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 712634313}
+        m_TargetAssemblyTypeName: ABRTimestepSelector, Assembly-CSharp
+        m_MethodName: ToggleMeteor
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 1
 --- !u!1 &580794969
 GameObject:
@@ -2839,11 +2863,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dataPathForTemplateDataImpressions: LANL/B31/KeyData/Meteor50
   dataPathForTemplateDataImpressions2: LANL/A31/KeyData/Meteor50
+  dataPathForTemplateDataImpressions3: LANL/C31/KeyData/Meteor50
   baseDataPathForTimesteps: LANL/B31/KeyData/Meteor50_
   baseDataPathForTimesteps2: LANL/A31/KeyData/Meteor50_
+  baseDataPathForTimesteps3: LANL/C31/KeyData/Meteor50_
   firstTimestepNumber: 0
   lastTimestepNumber: 40
   timestepNumberInc: 10
+  renderFirstImpression: 1
 --- !u!1 &723265521
 GameObject:
   m_ObjectHideFlags: 0
@@ -3792,10 +3819,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -3859,6 +3886,7 @@ GameObject:
   - component: {fileID: 843708792}
   - component: {fileID: 843708791}
   - component: {fileID: 843708790}
+  - component: {fileID: 843708793}
   m_Layer: 5
   m_Name: Window2Button
   m_TagString: Untagged
@@ -3929,7 +3957,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 843708791}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 843708793}
+        m_TargetAssemblyTypeName: MoveCamera, Assembly-CSharp
+        m_MethodName: Move
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &843708791
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3968,6 +4008,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 843708788}
   m_CullTransparentMesh: 1
+--- !u!114 &843708793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 843708788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a83a7ba45f1bcdf468cf41c65ce36169, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xPos: 0
+  yPos: 0
+  zPos: 10000
+  camera: {fileID: 1169571451}
 --- !u!1 &843763154
 GameObject:
   m_ObjectHideFlags: 0
@@ -4059,6 +4115,7 @@ GameObject:
   - component: {fileID: 857241329}
   - component: {fileID: 857241328}
   - component: {fileID: 857241327}
+  - component: {fileID: 857241330}
   m_Layer: 5
   m_Name: Window1Button
   m_TagString: Untagged
@@ -4129,7 +4186,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 857241328}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 857241330}
+        m_TargetAssemblyTypeName: MoveCamera, Assembly-CSharp
+        m_MethodName: Move
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &857241328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4168,6 +4237,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 857241325}
   m_CullTransparentMesh: 1
+--- !u!114 &857241330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 857241325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a83a7ba45f1bcdf468cf41c65ce36169, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xPos: 0
+  yPos: 0
+  zPos: 10000
+  camera: {fileID: 1570110768}
 --- !u!1 &866770904
 GameObject:
   m_ObjectHideFlags: 0
@@ -4884,6 +4969,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 225978958}
+        m_TargetAssemblyTypeName: ABRTimestepSelector, Assembly-CSharp
+        m_MethodName: ToggleWater
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 1
 --- !u!1 &1074234843
 GameObject:
@@ -5140,6 +5237,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 492880809}
+        m_TargetAssemblyTypeName: ABRTimestepSelector, Assembly-CSharp
+        m_MethodName: ToggleTemp
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 1
 --- !u!1 &1109981587
 GameObject:
@@ -5311,6 +5420,7 @@ GameObject:
   - component: {fileID: 1150346307}
   - component: {fileID: 1150346306}
   - component: {fileID: 1150346305}
+  - component: {fileID: 1150346308}
   m_Layer: 5
   m_Name: Window2Button
   m_TagString: Untagged
@@ -5381,7 +5491,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1150346306}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1150346308}
+        m_TargetAssemblyTypeName: MoveCamera, Assembly-CSharp
+        m_MethodName: Move
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1150346306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5420,49 +5542,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1150346303}
   m_CullTransparentMesh: 1
---- !u!1 &1162701978
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1162701979}
-  - component: {fileID: 1162701980}
-  m_Layer: 0
-  m_Name: SplitScreen
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &1162701979
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1162701978}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 67.76477, y: 77.66555, z: -173.3579}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1162701980
+--- !u!114 &1150346308
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1162701978}
+  m_GameObject: {fileID: 1150346303}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7facf4948459cba43b690e14e6aa0712, type: 3}
+  m_Script: {fileID: 11500000, guid: a83a7ba45f1bcdf468cf41c65ce36169, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  xPos: 0
+  yPos: 0
+  zPos: 0
+  camera: {fileID: 1169571451}
+--- !u!4 &1169571451 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7730492163957673726, guid: d6f3c44c63b07f340adf7114d49e29ae, type: 3}
+  m_PrefabInstance: {fileID: 2063848845}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1213926680
 GameObject:
   m_ObjectHideFlags: 0
@@ -5554,6 +5654,7 @@ GameObject:
   - component: {fileID: 1299868115}
   - component: {fileID: 1299868114}
   - component: {fileID: 1299868113}
+  - component: {fileID: 1299868116}
   m_Layer: 5
   m_Name: Window2Button
   m_TagString: Untagged
@@ -5624,7 +5725,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1299868114}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1299868116}
+        m_TargetAssemblyTypeName: MoveCamera, Assembly-CSharp
+        m_MethodName: Move
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1299868114
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5663,6 +5776,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1299868111}
   m_CullTransparentMesh: 1
+--- !u!114 &1299868116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299868111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a83a7ba45f1bcdf468cf41c65ce36169, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xPos: 0
+  yPos: 10000
+  zPos: 10000
+  camera: {fileID: 1169571451}
 --- !u!1001 &1310194592
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5676,7 +5805,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5227720014445609528, guid: 7065449f3d031b6fe805be247bc48142, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5227720014445609529, guid: 7065449f3d031b6fe805be247bc48142, type: 3}
       propertyPath: m_RootOrder
@@ -6549,6 +6678,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1567562673}
   m_CullTransparentMesh: 1
+--- !u!4 &1570110768 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7730492163957673726, guid: d6f3c44c63b07f340adf7114d49e29ae, type: 3}
+  m_PrefabInstance: {fileID: 1844248353}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1584714713
 GameObject:
   m_ObjectHideFlags: 0
@@ -6997,7 +7131,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1670501265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7604,6 +7738,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 511146906, guid: d6f3c44c63b07f340adf7114d49e29ae, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 511146907, guid: d6f3c44c63b07f340adf7114d49e29ae, type: 3}
       propertyPath: m_VerticalAxis
       value: None
@@ -7622,7 +7760,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7730492163957673726, guid: d6f3c44c63b07f340adf7114d49e29ae, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7730492163957673726, guid: d6f3c44c63b07f340adf7114d49e29ae, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7666,11 +7804,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7730492163957673727, guid: d6f3c44c63b07f340adf7114d49e29ae, type: 3}
       propertyPath: m_Name
-      value: TrackballCamera (1)
+      value: Left Camera
       objectReference: {fileID: 0}
     - target: {fileID: 7730492163957673727, guid: d6f3c44c63b07f340adf7114d49e29ae, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7730492164475173728, guid: d6f3c44c63b07f340adf7114d49e29ae, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7731,6 +7869,10 @@ PrefabInstance:
     - target: {fileID: 7730492164762745990, guid: d6f3c44c63b07f340adf7114d49e29ae, type: 3}
       propertyPath: m_NormalizedViewPortRect.width
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7730492164762745991, guid: d6f3c44c63b07f340adf7114d49e29ae, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d6f3c44c63b07f340adf7114d49e29ae, type: 3}
@@ -7901,6 +8043,18 @@ MonoBehaviour:
       - m_Target: {fileID: 126363601}
         m_TargetAssemblyTypeName: ImageSwap, Assembly-CSharp
         m_MethodName: ChangeSprite
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 492880809}
+        m_TargetAssemblyTypeName: ABRTimestepSelector, Assembly-CSharp
+        m_MethodName: TogglePressure
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8623,7 +8777,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7730492163957673727, guid: d6f3c44c63b07f340adf7114d49e29ae, type: 3}
       propertyPath: m_Name
-      value: TrackballCamera
+      value: RightCamera
       objectReference: {fileID: 0}
     - target: {fileID: 7730492163957673727, guid: d6f3c44c63b07f340adf7114d49e29ae, type: 3}
       propertyPath: m_IsActive
