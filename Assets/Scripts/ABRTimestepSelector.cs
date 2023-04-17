@@ -356,19 +356,19 @@ public class ABRTimestepSelector : MonoBehaviour
         DataImpressionGroup firstSim =
             ABREngine.Instance.GetDataImpressionGroup(firstSimGroup);
         List<SimpleVolumeDataImpression> impressions = firstSim.GetDataImpressions<SimpleVolumeDataImpression>();
-        impressions[0].RenderHints.Visible = toggle;
+        impressions[2].RenderHints.Visible = toggle;
 
         renderFirstImpression = toggle;
         DataImpressionGroup secondSim =
             ABREngine.Instance.GetDataImpressionGroup(secondSimGroup);
         impressions = secondSim.GetDataImpressions<SimpleVolumeDataImpression>();
-        impressions[0].RenderHints.Visible = toggle;
+        impressions[2].RenderHints.Visible = toggle;
 
         renderFirstImpression = toggle;
         DataImpressionGroup thirdSim =
             ABREngine.Instance.GetDataImpressionGroup(thirdSimGroup);
         impressions = thirdSim.GetDataImpressions<SimpleVolumeDataImpression>();
-        impressions[0].RenderHints.Visible = toggle;
+        impressions[2].RenderHints.Visible = toggle;
 
         ABREngine.Instance.Render();
     }
@@ -438,6 +438,21 @@ public class ABRTimestepSelector : MonoBehaviour
             ABREngine.Instance.GetDataImpressionGroup(thirdSimGroup);
         impressions = thirdSim.GetDataImpressions<SimpleSurfaceDataImpression>();
         impressions[1].RenderHints.Visible = toggle;
+
+        ABREngine.Instance.Render();
+
+
+        Debug.Log(toggle);
+        List<SimpleVolumeDataImpression> impressions2 = firstSim.GetDataImpressions<SimpleVolumeDataImpression>();
+        impressions2[0].RenderHints.Visible = toggle;
+
+        renderFirstImpression = toggle;
+        impressions2 = secondSim.GetDataImpressions<SimpleVolumeDataImpression>();
+        impressions2[0].RenderHints.Visible = toggle;
+
+        renderFirstImpression = toggle;
+        impressions2 = thirdSim.GetDataImpressions<SimpleVolumeDataImpression>();
+        impressions2[0].RenderHints.Visible = toggle;
 
         ABREngine.Instance.Render();
     }
