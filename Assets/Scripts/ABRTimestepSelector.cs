@@ -40,6 +40,12 @@ public class ABRTimestepSelector : MonoBehaviour
     public string dataPathForTemplateDataImpressions3 = "LANL/FireSim/KeyData/Wind";
 
 
+    [Tooltip("This string identifies the DataImpression in ABR Compose that should be treated as as template. " +
+        "In most cases, this will match a single DataImpression, but if multiple DataImpressions use the same " +
+        "KeyData, the class will handle switching the data on all of them.")]
+    public string dataPathForTemplateDataImpressions4 = "LANL/FireSim/KeyData/Wind";
+
+
     [Header("Timestep-Specific Data")]
 
     [Tooltip("This is the base string for the datapath where the time-varying versions of the KeyData can be found. " +
@@ -52,6 +58,9 @@ public class ABRTimestepSelector : MonoBehaviour
     [Tooltip("This is the base string for the datapath where the time-varying versions of the KeyData can be found. " +
         "The filename for the timesteps is created by appending the timestep number to this string.")]
     public string baseDataPathForTimesteps3 = "LANL/FireSim/KeyData/Wind_";
+    [Tooltip("This is the base string for the datapath where the time-varying versions of the KeyData can be found. " +
+        "The filename for the timesteps is created by appending the timestep number to this string.")]
+    public string baseDataPathForTimesteps4 = "LANL/FireSim/KeyData/Wind_";
 
     [Tooltip("The number of the first timestep. It is appended to baseDataPathForTimesteps to get the filename for " +
         "the KeyData.")]
@@ -72,15 +81,19 @@ public class ABRTimestepSelector : MonoBehaviour
     List<IDataImpression> dataImpressions;
     List<IDataImpression> dataImpressions2;
     List<IDataImpression> dataImpressions3;
+    List<IDataImpression> dataImpressions4;
     List<int> timestepNumbers;
     List<int> timestepNumbers2;
     List<int> timestepNumbers3;
+    List<int> timestepNumbers4;
     List<KeyData> timestepKeyData;
     List<KeyData> timestepKeyData2;
     List<KeyData> timestepKeyData3;
+    List<KeyData> timestepKeyData4;
     string firstSimGroup;
     string secondSimGroup;
     string thirdSimGroup;
+    string fourthSimGroup;
     // note: this is the index into the timestepNumbers and timestepKeyData arrays, NOT the current timestep number.
     int currentTimestepIndex;
 
@@ -134,17 +147,21 @@ public class ABRTimestepSelector : MonoBehaviour
         timestepNumbers = new List<int>();
         timestepNumbers2 = new List<int>();
         timestepNumbers3 = new List<int>();
+        timestepNumbers4 = new List<int>();
         timestepKeyData = new List<KeyData>();
         timestepKeyData2 = new List<KeyData>();
         timestepKeyData3 = new List<KeyData>();
+        timestepKeyData4 = new List<KeyData>();
         dataImpressions = new List<IDataImpression>();
         dataImpressions2 = new List<IDataImpression>();
         dataImpressions3 = new List<IDataImpression>();
+        dataImpressions4 = new List<IDataImpression>();
 
         // Cheat by getting the first 8 chars from the datapath because that 
         firstSimGroup = dataPathForTemplateDataImpressions.Substring(0, 8);
         secondSimGroup = dataPathForTemplateDataImpressions2.Substring(0, 8);
         thirdSimGroup = dataPathForTemplateDataImpressions3.Substring(0, 8);
+        fourthSimGroup = dataPathForTemplateDataImpressions4.Substring(0, 8);
     }
 
     private void Update()
@@ -153,6 +170,7 @@ public class ABRTimestepSelector : MonoBehaviour
         firstSimGroup = dataPathForTemplateDataImpressions.Substring(0, 8);
         secondSimGroup = dataPathForTemplateDataImpressions2.Substring(0, 8);
         thirdSimGroup = dataPathForTemplateDataImpressions3.Substring(0, 8);
+        fourthSimGroup = dataPathForTemplateDataImpressions4.Substring(0, 8);
 
         if (dataImpressions.Count == 0) {
             dataImpressions = ABREngine.Instance.GetDataImpressions(dataPathForTemplateDataImpressions);
@@ -177,6 +195,15 @@ public class ABRTimestepSelector : MonoBehaviour
             {
                 // frameCount == 1 so we only warn once
                 Debug.LogWarning($"No DataImpressions reference the data path '{dataPathForTemplateDataImpressions3}'.");
+            }
+        }
+        if (dataImpressions4.Count == 0)
+        {
+            dataImpressions4 = ABREngine.Instance.GetDataImpressions(dataPathForTemplateDataImpressions4);
+            if ((Time.frameCount == 1) && (dataImpressions4.Count == 0))
+            {
+                // frameCount == 1 so we only warn once
+                Debug.LogWarning($"No DataImpressions reference the data path '{dataPathForTemplateDataImpressions4}'.");
             }
         }
 
@@ -223,7 +250,7 @@ public class ABRTimestepSelector : MonoBehaviour
             for (int i = firstTimestepNumber; i <= lastTimestepNumber; i += timestepNumberInc)
             {
                 string mediaDir = Path.GetFullPath(ABREngine.Instance.MediaPath);
-                string dataPath3 = baseDataPathForTimesteps2 + i.ToString();
+                string dataPath3 = baseDataPathForTimesteps3 + i.ToString();
                 string fullPath3 = Path.Combine(mediaDir, ABRConfig.Consts.DatasetFolder, dataPath3) + ".json";
                 FileInfo jsonFile3 = new FileInfo(fullPath3);
                 if (jsonFile3.Exists)
@@ -235,6 +262,27 @@ public class ABRTimestepSelector : MonoBehaviour
                 else
                 {
                     Debug.LogWarning($"Skipping timestep {i}. Could not find data file at '{fullPath3}'");
+                }
+            }
+        }
+
+        if ((dataImpressions4.Count != 0) && (timestepKeyData4.Count == 0))
+        {
+            for (int i = firstTimestepNumber; i <= lastTimestepNumber; i += timestepNumberInc)
+            {
+                string mediaDir = Path.GetFullPath(ABREngine.Instance.MediaPath);
+                string dataPath4 = baseDataPathForTimesteps4 + i.ToString();
+                string fullPath4 = Path.Combine(mediaDir, ABRConfig.Consts.DatasetFolder, dataPath4) + ".json";
+                FileInfo jsonFile4 = new FileInfo(fullPath4);
+                if (jsonFile4.Exists)
+                {
+                    KeyData kd4 = ABREngine.Instance.Data.LoadData(dataPath4);
+                    timestepNumbers4.Add(i);
+                    timestepKeyData4.Add(kd4);
+                }
+                else
+                {
+                    Debug.LogWarning($"Skipping timestep {i}. Could not find data file at '{fullPath4}'");
                 }
             }
         }
@@ -320,30 +368,70 @@ public class ABRTimestepSelector : MonoBehaviour
             // possible types here.
 
             SimpleLineDataImpression lineDI = di as SimpleLineDataImpression;
-            if ((lineDI != null) && (lineDI.keyData != timestepKeyData2[currentTimestepIndex]))
+            if ((lineDI != null) && (lineDI.keyData != timestepKeyData3[currentTimestepIndex]))
             {
-                lineDI.keyData = timestepKeyData2[currentTimestepIndex];
+                lineDI.keyData = timestepKeyData3[currentTimestepIndex];
                 lineDI.RenderHints.DataChanged = true;
                 ABREngine.Instance.Render();
             }
             SimpleGlyphDataImpression glyphDI = di as SimpleGlyphDataImpression;
-            if ((glyphDI != null) && (glyphDI.keyData != timestepKeyData2[currentTimestepIndex]))
+            if ((glyphDI != null) && (glyphDI.keyData != timestepKeyData3[currentTimestepIndex]))
             {
-                glyphDI.keyData = timestepKeyData2[currentTimestepIndex];
+                glyphDI.keyData = timestepKeyData3[currentTimestepIndex];
                 glyphDI.RenderHints.DataChanged = true;
                 ABREngine.Instance.Render();
             }
             SimpleSurfaceDataImpression surfDI = di as SimpleSurfaceDataImpression;
-            if ((surfDI != null) && (surfDI.keyData != timestepKeyData2[currentTimestepIndex]))
+            if ((surfDI != null) && (surfDI.keyData != timestepKeyData3[currentTimestepIndex]))
             {
-                surfDI.keyData = timestepKeyData2[currentTimestepIndex];
+                surfDI.keyData = timestepKeyData3[currentTimestepIndex];
                 surfDI.RenderHints.DataChanged = true;
                 ABREngine.Instance.Render();
             }
             SimpleVolumeDataImpression volDI = di as SimpleVolumeDataImpression;
-            if ((volDI != null) && (volDI.keyData != timestepKeyData2[currentTimestepIndex]))
+            if ((volDI != null) && (volDI.keyData != timestepKeyData3[currentTimestepIndex]))
             {
-                volDI.keyData = timestepKeyData2[currentTimestepIndex];
+                volDI.keyData = timestepKeyData3[currentTimestepIndex];
+                volDI.RenderHints.DataChanged = true;
+                ABREngine.Instance.Render();
+            }
+        }
+
+
+        DataImpressionGroup fourthSim =
+            ABREngine.Instance.GetDataImpressionGroup(fourthSimGroup);
+        fourthSim.GroupRoot.transform.position = new Vector3(0, 10000, 0);
+
+        foreach (IDataImpression di in dataImpressions4)
+        {
+            // todo: add a TrySetKeyData() method to IDataImpression to avoid needing to loop through all the
+            // possible types here.
+
+            SimpleLineDataImpression lineDI = di as SimpleLineDataImpression;
+            if ((lineDI != null) && (lineDI.keyData != timestepKeyData4[currentTimestepIndex]))
+            {
+                lineDI.keyData = timestepKeyData4[currentTimestepIndex];
+                lineDI.RenderHints.DataChanged = true;
+                ABREngine.Instance.Render();
+            }
+            SimpleGlyphDataImpression glyphDI = di as SimpleGlyphDataImpression;
+            if ((glyphDI != null) && (glyphDI.keyData != timestepKeyData4[currentTimestepIndex]))
+            {
+                glyphDI.keyData = timestepKeyData4[currentTimestepIndex];
+                glyphDI.RenderHints.DataChanged = true;
+                ABREngine.Instance.Render();
+            }
+            SimpleSurfaceDataImpression surfDI = di as SimpleSurfaceDataImpression;
+            if ((surfDI != null) && (surfDI.keyData != timestepKeyData4[currentTimestepIndex]))
+            {
+                surfDI.keyData = timestepKeyData4[currentTimestepIndex];
+                surfDI.RenderHints.DataChanged = true;
+                ABREngine.Instance.Render();
+            }
+            SimpleVolumeDataImpression volDI = di as SimpleVolumeDataImpression;
+            if ((volDI != null) && (volDI.keyData != timestepKeyData4[currentTimestepIndex]))
+            {
+                volDI.keyData = timestepKeyData4[currentTimestepIndex];
                 volDI.RenderHints.DataChanged = true;
                 ABREngine.Instance.Render();
             }
@@ -370,6 +458,12 @@ public class ABRTimestepSelector : MonoBehaviour
         impressions = thirdSim.GetDataImpressions<SimpleVolumeDataImpression>();
         impressions[2].RenderHints.Visible = toggle;
 
+        renderFirstImpression = toggle;
+        DataImpressionGroup fourthSim =
+            ABREngine.Instance.GetDataImpressionGroup(fourthSimGroup);
+        impressions = fourthSim.GetDataImpressions<SimpleVolumeDataImpression>();
+        impressions[2].RenderHints.Visible = toggle;
+
         ABREngine.Instance.Render();
     }
 
@@ -391,6 +485,12 @@ public class ABRTimestepSelector : MonoBehaviour
         DataImpressionGroup thirdSim =
             ABREngine.Instance.GetDataImpressionGroup(thirdSimGroup);
         impressions = thirdSim.GetDataImpressions<SimpleVolumeDataImpression>();
+        impressions[1].RenderHints.Visible = toggle;
+
+        renderFirstImpression = toggle;
+        DataImpressionGroup fourthSim =
+            ABREngine.Instance.GetDataImpressionGroup(fourthSimGroup);
+        impressions = fourthSim.GetDataImpressions<SimpleVolumeDataImpression>();
         impressions[1].RenderHints.Visible = toggle;
 
         ABREngine.Instance.Render();
@@ -416,6 +516,12 @@ public class ABRTimestepSelector : MonoBehaviour
         impressions = thirdSim.GetDataImpressions<SimpleSurfaceDataImpression>();
         impressions[0].RenderHints.Visible = toggle;
 
+        renderFirstImpression = toggle;
+        DataImpressionGroup fourthSim =
+            ABREngine.Instance.GetDataImpressionGroup(fourthSimGroup);
+        impressions = fourthSim.GetDataImpressions<SimpleSurfaceDataImpression>();
+        impressions[0].RenderHints.Visible = toggle;
+
         ABREngine.Instance.Render();
     }
 
@@ -439,6 +545,12 @@ public class ABRTimestepSelector : MonoBehaviour
         impressions = thirdSim.GetDataImpressions<SimpleSurfaceDataImpression>();
         impressions[1].RenderHints.Visible = toggle;
 
+        renderFirstImpression = toggle;
+        DataImpressionGroup fourthSim =
+            ABREngine.Instance.GetDataImpressionGroup(fourthSimGroup);
+        impressions = fourthSim.GetDataImpressions<SimpleSurfaceDataImpression>();
+        impressions[1].RenderHints.Visible = toggle;
+
         ABREngine.Instance.Render();
 
 
@@ -452,6 +564,10 @@ public class ABRTimestepSelector : MonoBehaviour
 
         renderFirstImpression = toggle;
         impressions2 = thirdSim.GetDataImpressions<SimpleVolumeDataImpression>();
+        impressions2[0].RenderHints.Visible = toggle;
+
+        renderFirstImpression = toggle;
+        impressions2 = fourthSim.GetDataImpressions<SimpleVolumeDataImpression>();
         impressions2[0].RenderHints.Visible = toggle;
 
         ABREngine.Instance.Render();
